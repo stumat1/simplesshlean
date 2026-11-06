@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SimpleSshLean.Core/SimpleSshLean.Core.csproj" />
+    <Project Path="src/SimpleSshLean/SimpleSshLean.csproj" />
+    <Project Path="src/sshl/sshl.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SimpleSshLean.Tests/SimpleSshLean.Tests.csproj" />
+  </Folder>
+</Solution>

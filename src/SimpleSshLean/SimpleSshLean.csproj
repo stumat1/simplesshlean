@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>SimpleSshLean</AssemblyName>
+    <RootNamespace>SimpleSshLean</RootNamespace>
+    <ApplicationIcon>..\..\assets\icon.ico</ApplicationIcon>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ApplicationVisualStyles>true</ApplicationVisualStyles>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleSshLean.Core\SimpleSshLean.Core.csproj" />
+    <!-- sshl.exe ships next to SimpleSshLean.exe; the GUI opens it in Windows Terminal. -->
+    <ProjectReference Include="..\sshl\sshl.csproj" />
+  </ItemGroup>
+</Project>

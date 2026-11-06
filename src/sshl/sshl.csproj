@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>sshl</AssemblyName>
+    <RootNamespace>SimpleSshLean.Sshl</RootNamespace>
+    <ApplicationIcon>..\..\assets\icon.ico</ApplicationIcon>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleSshLean.Core\SimpleSshLean.Core.csproj" />
+  </ItemGroup>
+</Project>
