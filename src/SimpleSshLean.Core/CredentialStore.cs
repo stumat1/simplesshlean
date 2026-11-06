@@ -10,8 +10,8 @@ public static class CredentialStore
 {
     public static string TargetFor(SshTarget t) => $"SimpleSshLean:{t.Username}@{t.Host}:{t.Port}";
 
-    /// <summary>The target name the original simplessh app (Rust keyring crate) used.</summary>
-    public static string LegacyTargetFor(SshTarget t) => $"pw:{t.Username}@{t.Host}:{t.Port}.simplessh";
+    /// <summary>The target name simplessh (Rust keyring crate, service "simplessh2") uses.</summary>
+    public static string SimplesshTargetFor(SshTarget t) => $"pw:{t.Username}@{t.Host}:{t.Port}.simplessh2";
 
     public static bool Exists(string target)
     {

@@ -66,7 +66,7 @@ public sealed class CredentialStoreTests : IDisposable
     public void Dispose()
     {
         CredentialStore.Delete(CredentialStore.TargetFor(target));
-        CredentialStore.Delete(CredentialStore.LegacyTargetFor(target));
+        CredentialStore.Delete(CredentialStore.SimplesshTargetFor(target));
         Directory.Delete(dir, recursive: true);
     }
 
@@ -86,20 +86,40 @@ public sealed class CredentialStoreTests : IDisposable
     [Fact]
     public void ImportsHostsAndPasswordsFromSimplessh()
     {
-        CredentialStore.Write(CredentialStore.LegacyTargetFor(target), target.Username, "from-simplessh");
-        var legacy = Path.Combine(dir, "legacy-hosts.json");
-        File.WriteAllText(legacy, $$"""
-            { "hosts": [
+        CredentialStore.Write(CredentialStore.SimplesshTargetFor(target), target.Username, "from-simplessh");
+        var simplessh = Path.Combine(dir, "simplessh-hosts.json");
+        File.WriteAllText(simplessh, $$"""
+            { "version": 1, "data": [
               { "id": "a", "name": "Lab", "host": "{{target.Host}}", "port": 2222, "username": "tester", "savePassword": true },
               { "id": "b", "name": "Bad", "host": "-oProxyCommand=x", "port": 22, "username": "tester", "savePassword": false }
             ] }
             """);
         var store = new HostStore(Path.Combine(dir, "hosts.json"));
 
-        Assert.Equal(1, LegacyImport.Run(store, legacy));
+        Assert.Equal(1, SimplesshImport.Run(store, simplessh));
         var host = Assert.Single(store.Hosts);
         Assert.Equal(("Lab", target), (host.Name, host.Target));
         Assert.Equal("from-simplessh", CredentialStore.Read(CredentialStore.TargetFor(target)));
+    }
+
+    [Fact]
+    public void MissingSimplesshFileImportsNothing()
+    {
+        var store = new HostStore(Path.Combine(dir, "hosts.json"));
+        Assert.Equal(0, SimplesshImport.Run(store, Path.Combine(dir, "nope.json")));
+        Assert.Empty(store.Hosts);
+    }
+
+    [Theory]
+    [InlineData("""{ "version": 2, "data": [] }""")]
+    [InlineData("""{ "hosts": [] }""")]
+    public void UnknownSimplesshFormatIsReportedNotGuessed(string json)
+    {
+        var simplessh = Path.Combine(dir, "simplessh-hosts.json");
+        File.WriteAllText(simplessh, json);
+        var store = new HostStore(Path.Combine(dir, "hosts.json"));
+        Assert.Throws<InvalidDataException>(() => SimplesshImport.Run(store, simplessh));
+        Assert.Empty(store.Hosts);
     }
 }
 

@@ -14,7 +14,7 @@ if (firstRun && store.Warning is null)
 {
     try
     {
-        int imported = LegacyImport.Run(store, AppPaths.LegacyHostsFile);
+        int imported = SimplesshImport.Run(store, AppPaths.SimplesshHostsFile);
         if (imported > 0) message = $"Imported {imported} host(s) and their saved passwords from simplessh.";
     }
     catch (Exception e)

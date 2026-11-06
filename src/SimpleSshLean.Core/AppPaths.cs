@@ -8,8 +8,8 @@ public static class AppPaths
 
     public static string HostsFile => Path.Combine(DataDir, "hosts.json");
 
-    /// <summary>The original simplessh app's host list, imported on first run.</summary>
-    public static string LegacyHostsFile => Path.Combine(AppData, "com.simplessh.app", "hosts.json");
+    /// <summary>simplessh's host list, imported on first run.</summary>
+    public static string SimplesshHostsFile => Path.Combine(AppData, "com.simplessh.v2", "hosts.json");
 
     /// <summary>
     /// Windows' bundled OpenSSH. Preferred over whatever ssh is first on PATH:

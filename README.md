@@ -5,7 +5,7 @@ Terminal tabs**, using the **OpenSSH client built into Windows**. It doesn't
 include an SSH stack or a terminal emulator of its own. The app only keeps your
 host list and saved passwords, and Windows handles the rest.
 
-It's the lean sibling of [simplessh](../simplessh) (Tauri + russh + xterm.js).
+It's the lean sibling of [simplessh](https://github.com/stumat1/simplessh) (Tauri + russh + xterm.js).
 
 ## How it works
 
@@ -43,7 +43,9 @@ Windows Terminal tab
 - Reconnect: when a session ends with an error, press **R** in the tab.
 - "Forget trusted host key" (right-click) runs `ssh-keygen -R` after a known,
   legitimate host-key change.
-- On first run, hosts and saved passwords from **simplessh** are imported.
+- On first run, hosts and saved passwords from **simplessh** are imported, if
+  it's installed. simplessh's data is only read, never changed. It isn't
+  required: without it, the host list just starts empty.
 
 Shortcuts: **Enter** connects, **F2** edits, **Del** deletes, **Ctrl+N** adds a host,
 and **Ctrl+L** jumps to quick connect.
